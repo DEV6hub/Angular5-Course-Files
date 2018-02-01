@@ -35,7 +35,7 @@ $ ng serve --app component-styling
 Some modules involve making an async call to a server. This server is available in the following location.
 
 ```
-$ cd exercise/resources/server
+$ cd resources/server
 $ node server.js
 ```
 
