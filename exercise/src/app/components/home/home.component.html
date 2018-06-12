@@ -1,0 +1,29 @@
+<div class="container-fluid">
+  <div class="img-container">
+    <img src="{{fractalPath}}">
+  </div>
+  <div class="row">
+    <div class="side-column" *ngIf="tab && tab.activeId == 'signup'">
+      <app-login></app-login>
+    </div>
+    <div class="center-column">
+      <img class="vertical-logo" src="{{verticalLogoPath}}">
+      <div class="copyright text-center">© 2018 DEV6 – A division of The New Toronto Group Inc.</div>
+    </div>
+    <div class="side-column" [ngClass]="{'shipping-col': tab.activeId !== 'signup'}">
+      <h2 class="text-center" *ngIf="tab.activeId == 'signup'">Sign up</h2>
+      <ngb-tabset class="home-tabs" [justify]="'center'" #tab="ngbTabset">
+        <ngb-tab title="Step 1" id="signup">
+          <ng-template ngbTabContent>
+            <app-signup (signupSuccess)="goToShipping($event)"></app-signup>
+          </ng-template>
+        </ngb-tab>
+        <ngb-tab title="Step 2" [disabled]="shippingTabDisabled" id="shipping">
+          <ng-template ngbTabContent>
+            <app-signup-user-info></app-signup-user-info>
+          </ng-template>
+        </ngb-tab>
+      </ngb-tabset>
+    </div>
+  </div>
+</div>

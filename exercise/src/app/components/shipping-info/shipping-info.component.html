@@ -1,0 +1,73 @@
+<div class="shipping-info-container">
+  <form [formGroup]="shippingInfoForm" novalidate>
+    <div class="row shipping-info-header">
+      <div class="shipping-info-title">Shipping Info</div>
+    </div>
+    <hr>
+    <div>
+      <div class="row">
+        <div class="col">
+          <label for="name">Name</label>
+          <input type="text" id="name" class="form-control" formControlName="name" placeholder="Johnny Appleseed">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <label for="email">Email</label>
+          <input type="email" id="email" class="form-control" formControlName="email" placeholder="johnny5@nova-industries.com">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" class="form-control" formControlName="phone" placeholder="555-123-1234">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <label for="address1">Address 1</label>
+          <input type="text" id="address1" class="form-control" formControlName="address1" placeholder="123 Anywhere Ave.">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <label for="address2">Address 2</label>
+          <input type="text" id="address2" class="form-control" formControlName="address2" placeholder="Suite 101">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <label for="city">City</label>
+          <input type="text" id="city" class="form-control" formControlName="city" placeholder="Toronto">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <label for="country">Country</label>
+          <br>
+          <select class="form-control" id="country" formControlName="country" (change)="selectCountry($event.currentTarget.value)">
+            <option value="Select Option">Select Option</option>
+            <option *ngFor="let country of countries" [value]="country" (click)="selectCountry(country)">{{country}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <label for="province">Province/State</label>
+          <br>
+          <select class="form-control" id="province" formControlName="province" (change)="selectState($event.currentTarget.value)">
+            <option value="Select">Select</option>
+            <option *ngFor="let state of states[selectedCountry]" [value]="state" (click)="selectState(state)">{{state}}</option>
+          </select>
+        </div>
+        <div class="col-6">
+          <label for="postal">Postal Code</label>
+          <input type="text" id="postal" formControlName="postal" class="form-control" placeholder="L5N 2N5">
+        </div>
+      </div>
+    </div>
+    <div class="float-right go-to-payment">
+      <button type="button" class="primary-btn" (click)="goToPayment()">GO TO PAYMENT</button>
+    </div>
+  </form>
+</div>
