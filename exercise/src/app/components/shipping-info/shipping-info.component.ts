@@ -1,8 +1,8 @@
-import { Component, OnInit, Output, EventEmitter} from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { Component, OnInit, Output, EventEmitter, ViewChild} from '@angular/core';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { COUNTRIES, REGIONS } from '../../constants/static-data.constants';
 import { SlidingPanelsService } from '../../core/sliding-panels.service';
-
+import { UserInfo } from '../../shared/user-info';
 @Component({
   selector: 'app-shipping-info',
   templateUrl: './shipping-info.component.html',
@@ -12,27 +12,15 @@ export class ShippingInfoComponent implements OnInit {
 
   private states = REGIONS;
   private countries = COUNTRIES;
-
-  shippingInfoForm: FormGroup;
-
+  @ViewChild('f') form: any;
+  model: UserInfo = new UserInfo();
   selectedCountry = 'Select Option';
   selectedState = 'Select';
 
-  constructor(private fb: FormBuilder, private slidingPanelsService: SlidingPanelsService) {
-  } 
+  constructor(private slidingPanelsService: SlidingPanelsService) {
+  }
 
   ngOnInit() {
-    this.shippingInfoForm = this.fb.group({
-      name: [],
-      email: [],
-      phone: [],
-      address1: [],
-      address2: [],
-      city: [],
-      country: [],
-      province: [],
-      postal: []
-    });
   }
 
   selectCountry(country) {
@@ -45,7 +33,9 @@ export class ShippingInfoComponent implements OnInit {
   }
 
   goToPayment(): void {
+    if (this.form.valid) {
     this.slidingPanelsService.togglePaymentMethod(true);
+    }
   }
 
 }

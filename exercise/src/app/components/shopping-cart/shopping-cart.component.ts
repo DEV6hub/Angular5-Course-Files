@@ -54,14 +54,11 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
   }
   removeItem(formGroup): void {
     const formItems = this.shoppingCartForm.get('shoppingItems') as FormArray;
-    console.log(formItems);
     const index = formItems.controls.findIndex(f => f === formGroup);
-    // console.log(index);
     formItems.removeAt(index);
   }
   formInitialized(name: string, form: FormGroup) {
     const items = this.shoppingCartForm.get('shoppingItems') as FormArray;
     items.push(form);
-    //this.shoppingCartForm.setControl(name, form);
   }
 }
