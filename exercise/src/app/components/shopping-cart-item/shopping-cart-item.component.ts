@@ -4,7 +4,7 @@ import { ShoppingItem } from '../../shared/shopping-item';
 import { ShirtSize } from '../../shared/shirt-size';
 import { Observable } from 'rxjs/Observable';
 import { ShoppingCartService } from '../../core/shopping-cart.service';
-import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
+import { FormControl, Validators, FormGroup, FormBuilder, FormArray } from '@angular/forms';
 
 const TIMES_PATH = "../../../assets/images/icon-times.svg";
 
@@ -16,8 +16,10 @@ const TIMES_PATH = "../../../assets/images/icon-times.svg";
 export class ShoppingCartItemComponent implements OnInit {
 
   @Input() item: ShoppingItem;
+  @Input() shoppingCartFormItems: FormArray;
   @Output() quantityChange = new EventEmitter();
   @Output() formReady = new EventEmitter<FormGroup>();
+  @Output() removeItem = new EventEmitter<FormGroup>();
   shoppingItemForm: FormGroup;
 
   timesImagePath: string = TIMES_PATH;
@@ -39,6 +41,7 @@ export class ShoppingCartItemComponent implements OnInit {
 
   removeCartItem(item: ShoppingItem): any {
     this.shoppingCartService.removeFromShoppingCart(item);
+    this.removeItem.emit(this.shoppingItemForm);
   }
 
 }

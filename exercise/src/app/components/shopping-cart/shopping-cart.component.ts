@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, OnDestroy, EventEmitter, Output, Input } from '@angular/core';
 import { Shirt } from '../../shared/shirt';
 import { ShoppingItem } from '../../shared/shopping-item';
 import { ShoppingCartService } from '../../core/shopping-cart.service';
@@ -16,7 +16,6 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
   shoppingCartItems: ShoppingItem[];
   subscription: Subscription;
   subtotal: number;
-
   shoppingCartForm: FormGroup;
 
   constructor(private shoppingCartService: ShoppingCartService,
@@ -34,7 +33,6 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
 
       ])
     });
-
   }
 
   ngOnDestroy() {
@@ -54,7 +52,13 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
   goToShipping(): void {
     this.slidingPanelsService.toggleShippingInfo(true);
   }
-
+  removeItem(formGroup): void {
+    const formItems = this.shoppingCartForm.get('shoppingItems') as FormArray;
+    console.log(formItems);
+    const index = formItems.controls.findIndex(f => f === formGroup);
+    // console.log(index);
+    formItems.removeAt(index);
+  }
   formInitialized(name: string, form: FormGroup) {
     const items = this.shoppingCartForm.get('shoppingItems') as FormArray;
     items.push(form);

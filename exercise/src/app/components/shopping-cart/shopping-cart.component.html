@@ -1,5 +1,5 @@
 <div class="shopping-cart-container">
-  <form [formGroup]="shoppingCartForm" novalidate>
+  <form [formGroup]="shoppingCartForm" (ngSubmit)=goToShipping() novalidate>
     <div class="row shopping-cart-header">
       <div class="col-xs-8 shopping-cart-title">Shopping Cart</div>
       <div class="col-xs-3 shopping-cart-btn" (click)="closeShoppingCart()">
@@ -12,9 +12,10 @@
     <hr>
     <div *ngIf="shoppingCartItems?.length > 0">
       <div formArrayName="shoppingItems">
-        <app-shopping-cart-item  *ngFor="let shoppingItem of shoppingCartItems; let i = index;"
+        <app-shopping-cart-item   [shoppingCartFormItems]="shoppingCartForm.controls.shoppingItems"  *ngFor="let shoppingItem of shoppingCartItems; let i = index;"
           (formReady)="formInitialized(i, $event)"
           [item]="shoppingItem" 
+          (removeItem)="removeItem($event)"
           (quantityChange)=changeQuantity($event)></app-shopping-cart-item>
       </div>
     </div>
@@ -25,7 +26,7 @@
       <strong><span class="subtotal">Subtotal: </span><span class="subtotal-price">{{subtotal | currency}}</span></strong>
     </div><br>
     <div class="float-right" *ngIf="shoppingCartItems?.length > 0">
-      <button type="button" [disabled]="!shoppingCartForm.valid" class="primary-btn" (click)="goToShipping()">GO TO SHIPPING</button>
+      <button type="submit" class="primary-btn" [disabled]="!shoppingCartForm.valid">GO TO SHIPPING</button>
     </div>
   </form>
 </div>
