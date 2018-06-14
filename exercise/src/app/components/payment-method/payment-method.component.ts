@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import {PaymentInfo} from '../../shared/payment-info';
+import { FormGroup, FormBuilder, FormControl, Validators, Form } from '@angular/forms';
+import { PaymentInfo } from '../../shared/payment-info';
 import { ShoppingCartService } from '../../core/shopping-cart.service';
 import { SlidingPanelsService } from '../../core/sliding-panels.service';
 // tslint:disable-next-line:import-blacklist
@@ -23,11 +23,11 @@ export class PaymentMethodComponent implements OnInit {
   shipping: number;
   total: number;
   model: PaymentInfo = new PaymentInfo();
-  @ViewChild('f') form: any;
+  @ViewChild('paymentForm') form: any;
 
   constructor(private shoppingCartService: ShoppingCartService,
-              private slidingPanelsService: SlidingPanelsService) {
-                this.checkedOut = new EventEmitter();
+    private slidingPanelsService: SlidingPanelsService) {
+    this.checkedOut = new EventEmitter();
   }
 
   ngOnInit() {
@@ -39,7 +39,7 @@ export class PaymentMethodComponent implements OnInit {
   }
 
   checkout(): void {
-    if (this.form.valid()) {
+    if (this.form.valid) {
       this.checkedOut.emit();
     }
   }

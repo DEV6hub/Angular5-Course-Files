@@ -27,7 +27,11 @@ export class GraphicTextEditorComponent implements OnInit {
     console.log(imgUrlToUse);
     if (this.canvas) {
       if (this.currentImage) {
-        this.currentImage.setSrc(imgUrlToUse, () => {
+        this.currentImage.setSrc(imgUrlToUse, (img) => {
+          img.scaleToWidth(this.canvas.getWidth() - 20);
+          this.currentImage = img;
+          this.canvas.centerObjectH(img);
+          this.canvas.setActiveObject(img);
           this.canvas.renderAll();
         });
       }
