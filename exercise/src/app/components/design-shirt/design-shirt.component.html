@@ -51,7 +51,7 @@
                [title]="colourPickerTitle"></app-colour-picker>
             </div>   
             <div class="tab-pane" id="3" [ngClass]="{'active': activeTab === 3}">
-              <app-graphics-picker></app-graphics-picker>
+              <app-graphics-picker (changeGraphic)="changeGraphic($event)"></app-graphics-picker>
             </div>   
             <div class="tab-pane" id="4" [ngClass]="{'active': activeTab === 4}">
               <app-text-picker></app-text-picker>
@@ -62,9 +62,11 @@
       <div class="design-col">
         <div class="card image-design">
           <img class="img-fluid" src="{{getStyleImagePath()}}" alt="shirt design">
-          <object #graphicImage class="img-fluid graphic-img" [hidden]="!hasGraphic()" [data]="getGraphicImagePath()" type="image/svg+xml"></object>
+          <!-- <object #graphicImage class="img-fluid graphic-img"  [data]="getGraphicImagePath()" type="image/svg+xml"></object> -->
           <div class="shirt-text" [hidden]="!hasText()"
           [ngStyle]="{'color': getTextColour(), 'font-family': getTextFont()}">{{editableShirt.text.value}}</div>
+          <div *ngIf="hasGraphic() && !rerender" class="graphic-img">
+            <app-graphic-text-editor #graphicEditor [imageUrl]="getGraphicImagePath()"></app-graphic-text-editor></div>
         </div>
       </div>
     </div>

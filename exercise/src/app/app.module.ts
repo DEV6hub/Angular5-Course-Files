@@ -36,6 +36,7 @@ import { StylePickerComponent } from './components/style-picker/style-picker.com
 import { ColourPickerComponent } from './components/colour-picker/colour-picker.component';
 import { GraphicsPickerComponent } from './components/graphics-picker/graphics-picker.component';
 import { TextPickerComponent } from './components/text-picker/text-picker.component';
+import { GraphicTextEditorComponent } from './components/graphic-text-editor/graphic-text-editor.component';
 
 
 
@@ -69,7 +70,8 @@ const routes: Routes = [
     StylePickerComponent,
     ColourPickerComponent,
     GraphicsPickerComponent,
-    TextPickerComponent
+    TextPickerComponent,
+    GraphicTextEditorComponent
   ],
   imports: [
     BrowserModule,

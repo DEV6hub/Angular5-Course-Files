@@ -117,12 +117,11 @@
 }
 
 .graphic-img {
-    top: 15%;
+    top: 10%;
     width: 45%;
-    padding: 35px;
-    border: 1px solid #DDDDDD;
-    height: 380px;
-    width: 380px;
+    /* border: 1px solid #DDDDDD; */
+    height: 85%;
+    width: 55%;
     display: flex;
     align-self: center;
 }

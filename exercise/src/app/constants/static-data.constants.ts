@@ -80,21 +80,21 @@ export const REGIONS = {
 };
 
 export const GRAPHICS = [
-    { name: 'crown', fileName: 'graphic1.svg' },
-    { name: 'smile', fileName: 'graphic2.svg' },
-    { name: 'wolf', fileName: 'graphic3.svg' },
-    { name: 'planet', fileName: 'graphic4.svg' },
-    { name: 'maple', fileName: 'graphic5.svg' },
-    { name: 'karate', fileName: 'graphic6.svg' },
-    { name: 'rocket', fileName: 'graphic7.svg' },
-    { name: 'falcon', fileName: 'graphic8.svg' },
-    { name: 'eagle', fileName: 'graphic9.svg' },
-    { name: 'heart', fileName: 'graphic10.svg' },
-    { name: 'earth', fileName: 'graphic11.svg' },
-    { name: 'afro', fileName: 'graphic12.svg' },
-    { name: 'skeleton', fileName: 'graphic13.svg' },
-    { name: 'hundred', fileName: 'graphic14.svg' },
-    { name: 'vader', fileName: 'graphic15.svg' }
+    { name: 'crown', fileName: 'graphic1.png' },
+    { name: 'smile', fileName: 'graphic2.png' },
+    { name: 'wolf', fileName: 'graphic3.png' },
+    { name: 'planet', fileName: 'graphic4.png' },
+    { name: 'maple', fileName: 'graphic5.png' },
+    { name: 'karate', fileName: 'graphic6.png' },
+    { name: 'rocket', fileName: 'graphic7.png' },
+    { name: 'falcon', fileName: 'graphic8.png' },
+    { name: 'eagle', fileName: 'graphic9.png' },
+    { name: 'heart', fileName: 'graphic10.png' },
+    { name: 'earth', fileName: 'graphic11.png' },
+    { name: 'afro', fileName: 'graphic12.png' },
+    { name: 'skeleton', fileName: 'graphic13.png' },
+    { name: 'hundred', fileName: 'graphic14.png' },
+    { name: 'vader', fileName: 'graphic15.png' }
   ];
 
   export const STYLES = [

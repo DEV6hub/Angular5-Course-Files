@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ShirtService } from '../../core/shirt.service';
-import { Shirt } from '../../shared/shirt';
+import { Shirt, Graphic } from '../../shared/shirt';
 import { Subscription } from 'rxjs';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { GraphicTextEditorComponent } from '../graphic-text-editor/graphic-text-editor.component';
 
 const FRACTAL_PATH = '../../../assets/images/Fractal.png';
 
@@ -18,13 +18,12 @@ export class DesignShirtComponent implements OnInit {
   activeTab: number;
   editableShirt: Shirt;
   sub: Subscription;
-  @ViewChild('graphicImage') graphicImage: ElementRef;
+  @ViewChild('graphicEditor') graphicEditor: GraphicTextEditorComponent;
 
   colourPickerTitle: string = 'Choose a shirt colour';
 
-  constructor(private shirtService: ShirtService, 
-      private sanitizer: DomSanitizer, 
-      private renderer: Renderer2) { }
+  constructor(private shirtService: ShirtService) {
+  }
 
   ngOnInit() {
     
@@ -33,17 +32,9 @@ export class DesignShirtComponent implements OnInit {
       this.editableShirt = shirt;
       
       if (this.hasGraphic()) {
-        this.updateGraphicColour();
+        this.changeGraphic();
       }
     });
-  }
-
-  updateGraphicColour(): void {
-    if (this.graphicImage.nativeElement) {
-      //this.graphicImage.nativeElement.contentDocument.firstChild.children[1].style.fill = this.editableShirt.graphic.colour;
-      this.renderer.setStyle(this.graphicImage.nativeElement.contentDocument.firstChild,
-      'fill', this.editableShirt.graphic.colour.value);
-    }
   }
 
   toggleTab(tabId: number): void {
@@ -54,9 +45,16 @@ export class DesignShirtComponent implements OnInit {
     return this.shirtService.getStyleImagePath();
   }
 
-  getGraphicImagePath(graphic?): SafeUrl {
-    const path = this.editableShirt.graphic ? this.shirtService.getGraphicImagePath(graphic) : '';
-    return this.sanitizer.bypassSecurityTrustResourceUrl(path);
+  getGraphicImagePath(graphic?): string {
+    return this.editableShirt.graphic ? this.shirtService.getGraphicImagePath(graphic) : '';
+    // return this.sanitizer.bypassSecurityTrustResourceUrl(path);
+  }
+
+  changeGraphic(graphic?: Graphic): void {
+    const selectedGraphic = graphic ? graphic : this.editableShirt.graphic;
+    if (this.graphicEditor) {
+      this.graphicEditor.loadImage(this.getGraphicImagePath(selectedGraphic));
+    }
   }
 
   getTextColour(): string {

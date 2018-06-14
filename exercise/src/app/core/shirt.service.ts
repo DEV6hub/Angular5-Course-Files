@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Shirt, Colour } from '../shared/shirt';
+import { Shirt, Colour, Graphic } from '../shared/shirt';
 import { Observable, BehaviorSubject, Subject } from 'rxjs';
 import { SHIRTS } from '../constants/static-data.constants';
 
@@ -62,6 +62,11 @@ export class ShirtService {
         this.emitEditableShirt();
     }
 
+    updateShirtGraphic(graphic: Graphic): void {
+        this.editableShirt.graphic = graphic;
+        this.emitEditableShirt();
+    }
+
     updateShirtTextFont(font): void {
         this.editableShirt.text.font = font;
     }
@@ -71,9 +76,29 @@ export class ShirtService {
     }
 
     getGraphicImagePath(graphic?): string {
-        const file = `${(graphic) ? graphic.fileName : 
-            (this.editableShirt.graphic.fileName !== '' ? this.editableShirt.graphic.fileName : '')}`;
-        return (file !== '') ? `${GRAPHICS_IMAGES_PATH}${file}` : '';
+
+        let usedGraphic: Graphic;
+        if (graphic) {
+            usedGraphic = graphic;
+        }
+        else {
+            usedGraphic = this.editableShirt.graphic;    
+        }
+
+        return this.buildGraphicPath(usedGraphic);
+
+        // const file = `${(graphic) ? graphic.fileName : 
+        //     (this.editableShirt.graphic.fileName !== '' ? this.editableShirt.graphic.fileName : '')}`;
+
+        // return (file !== '') ? (this.editableShirt.graphic.colour && this.editableShirt.graphic.colour.value !== '') ?
+        //     `${GRAPHICS_IMAGES_PATH}${file.split('.')[0].trim()}_${this.editableShirt.graphic.colour.value}.png`:
+        //     `${GRAPHICS_IMAGES_PATH}${file}` : '';
+    }
+
+    private buildGraphicPath(graphic: Graphic): string {
+        return (graphic.colour && graphic.colour.value !== '') ?
+            `${GRAPHICS_IMAGES_PATH}${graphic.fileName.split('.')[0].trim()}_${graphic.colour.value.replace('#', '')}.png`:
+            `${GRAPHICS_IMAGES_PATH}${graphic.fileName}`;
     }
 
     isStyleSelected(style): boolean {

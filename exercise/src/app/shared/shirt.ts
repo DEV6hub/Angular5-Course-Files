@@ -29,7 +29,7 @@ export interface Text {
 
 export interface Graphic {
     name: string,
-    colour: Colour,
+    colour?: Colour,
     fileName: string
 }
 
