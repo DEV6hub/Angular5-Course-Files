@@ -13,6 +13,16 @@
       </div>
     </div>
     <div class="row">
+        <div class="col">
+          <label for="email">Email</label>
+          <input type="email" pattern="[^ @]*@[^ @]*" formControlName="email" class="form-control" placeholder="johnny5@nova-industries.com">
+          <div class="validation-error" *ngIf="userInfoForm.controls.email.errors && (userInfoForm.controls.email.dirty || userInfoForm.controls.email.touched)">
+            <p *ngIf="userInfoForm.controls.email.errors.required">Email is required</p>
+            <p *ngIf="userInfoForm.controls.email.errors.pattern">Email must contain at least the @ character</p>
+          </div>
+        </div>
+      </div>
+    <div class="row">
       <div class="form-group col">
         <label for="address1">Address 1</label>
         <input type="text" formControlName="address1" class="form-control form-control-sm">
