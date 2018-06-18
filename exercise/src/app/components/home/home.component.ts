@@ -16,16 +16,6 @@ export class HomeComponent implements OnInit {
   constructor() {
   }
 
-  currentTab = 'shipping';
-  shippingTabDisabled = true;
-
-  ngOnInit() {
-    this.tab.activeId = 'shipping';
-  }
-
-  goToShipping(event) {
-    this.shippingTabDisabled = !event;
-    this.tab.activeId = 'shipping';
-  }
+  ngOnInit() {}
 
 }
