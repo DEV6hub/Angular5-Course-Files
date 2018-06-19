@@ -28,6 +28,10 @@ export class CatalogComponent implements OnInit, OnDestroy {
 
   logoPath = '../../../assets/images/navlogo.png';
 
+  @ViewChild('shoppingCartPanel') shoppingCartPanel: ElementRef;
+  @ViewChild('shippingInfoPanel') shippingInfoPanel: ElementRef;
+  @ViewChild('paymentMethodPanel') paymentMethodPanel: ElementRef;
+  @ViewChild('catalogTabs') catalogTabset: NgbTabset;
   constructor(private shirtService: ShirtService,
     private shoppingCartService: ShoppingCartService,
     private slidingPanelsService: SlidingPanelsService,
