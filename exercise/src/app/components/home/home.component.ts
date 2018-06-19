@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NgbTabContent } from '@ng-bootstrap/ng-bootstrap';
+
 
 @Component({
   selector: 'app-home',
@@ -6,7 +8,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
+  verticalLogoPath = '../../../assets/images/Shirtastic-vertical.svg';
+  fractalPath = '../../../assets/images/Fractal.png';
   constructor() { }
 
   ngOnInit() {
