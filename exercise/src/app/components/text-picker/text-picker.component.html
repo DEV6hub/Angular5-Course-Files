@@ -33,7 +33,7 @@
 <div class="form-groups">
     <div class="form-group">
       <label for="txt" class="text-picker-label">Enter text</label>
-      <input type="text" name="txt" id="txt" class="form-control" [value]="editableShirt.text.value | lowercase" (input)="changeShirtText($event.target.value)">
+      <input type="text" name="txt" id="txt" class="form-control" [value]="editableShirt.text.value" (input)="changeShirtText($event.target.value)">
     </div>
     <hr class="no-margin-bottom">
     <div class="form-group">

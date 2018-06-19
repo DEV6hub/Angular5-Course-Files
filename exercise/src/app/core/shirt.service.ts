@@ -54,11 +54,12 @@ export class ShirtService {
 
     selectGraphicColour(colour: Colour): void {
         this.editableShirt.graphic.colour = colour;
+        this.editableShirt.graphic.fileName = this.getGraphicImagePath();
         this.emitEditableShirt();
     }
 
     updateShirtText(text): void {
-        this.editableShirt.text.value = text.toUpperCase();
+        this.editableShirt.text.value = text;
         this.emitEditableShirt();
     }
 

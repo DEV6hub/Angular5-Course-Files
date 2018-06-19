@@ -13,6 +13,7 @@ export class GraphicsPickerComponent implements OnInit {
 
   graphics = GRAPHICS;
   @Output() changeGraphic: EventEmitter<Graphic>;
+  @Output() changeGraphicColour: EventEmitter<Colour>;
 
   editableShirt: Shirt;
   sub: Subscription;
@@ -20,6 +21,7 @@ export class GraphicsPickerComponent implements OnInit {
 
   constructor(private shirtService: ShirtService) {
     this.changeGraphic = new EventEmitter<Graphic>();
+    this.changeGraphicColour = new EventEmitter<Colour>();
    }
 
   ngOnInit() {
@@ -30,7 +32,7 @@ export class GraphicsPickerComponent implements OnInit {
 
   pickGraphic(graphic): void {
     const newGraphic = { name: graphic.name, fileName: graphic.fileName };
-    this.shirtService.updateShirtGraphic(newGraphic);
+    //this.shirtService.updateShirtGraphic(newGraphic);
     this.changeGraphic.emit(newGraphic);
     // Object.assign(this.editableShirt.graphic, graphic);
   }
@@ -40,8 +42,9 @@ export class GraphicsPickerComponent implements OnInit {
     return path;
   }
 
-  changedColour(colour: Colour): void {
-    this.shirtService.selectGraphicColour(colour);
+  changeColour(colour: Colour): void {
+    //this.shirtService.selectGraphicColour(colour);
+    this.changeGraphicColour.emit(colour);
   }
 
 }

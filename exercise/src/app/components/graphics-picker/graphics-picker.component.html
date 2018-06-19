@@ -13,7 +13,7 @@
   </div>
   <hr class="no-margin-bottom">
   <div class="row">
-    <app-colour-picker [selectedColour]="editableShirt.graphic.colour" (selectedColourChange)="changedColour($event)"
+    <app-colour-picker [(selectedColour)]="editableShirt.graphic.colour" (selectedColourChange)="changeColour($event)"
       [title]="graphicColourTitle"></app-colour-picker>
   </div>
 </div>

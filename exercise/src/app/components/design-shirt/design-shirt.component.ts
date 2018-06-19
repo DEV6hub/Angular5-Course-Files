@@ -1,8 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ShirtService } from '../../core/shirt.service';
-import { Shirt, Graphic } from '../../shared/shirt';
+import { Shirt, Graphic, Colour } from '../../shared/shirt';
 import { Subscription } from 'rxjs';
-import { GraphicTextEditorComponent } from '../graphic-text-editor/graphic-text-editor.component';
 
 const FRACTAL_PATH = '../../../assets/images/Fractal.png';
 
@@ -18,7 +17,7 @@ export class DesignShirtComponent implements OnInit {
   activeTab: number;
   editableShirt: Shirt;
   sub: Subscription;
-  @ViewChild('graphicEditor') graphicEditor: GraphicTextEditorComponent;
+  currentGraphicImageUrl: string;
 
   colourPickerTitle: string = 'Choose a shirt colour';
 
@@ -30,11 +29,9 @@ export class DesignShirtComponent implements OnInit {
     this.activeTab = 4;
     this.sub = this.shirtService.getEditableShirt().subscribe((shirt) => {
       this.editableShirt = shirt;
-      
-      if (this.hasGraphic()) {
-        this.changeGraphic();
-      }
     });
+
+    this.currentGraphicImageUrl = this.getGraphicImagePath();
   }
 
   toggleTab(tabId: number): void {
@@ -46,15 +43,18 @@ export class DesignShirtComponent implements OnInit {
   }
 
   getGraphicImagePath(graphic?): string {
-    return this.editableShirt.graphic ? this.shirtService.getGraphicImagePath(graphic) : '';
-    // return this.sanitizer.bypassSecurityTrustResourceUrl(path);
+    return this.editableShirt.graphic.fileName ? this.shirtService.getGraphicImagePath(graphic) : '';
   }
 
   changeGraphic(graphic?: Graphic): void {
     const selectedGraphic = graphic ? graphic : this.editableShirt.graphic;
-    if (this.graphicEditor) {
-      this.graphicEditor.loadImage(this.getGraphicImagePath(selectedGraphic));
-    }
+    this.editableShirt.graphic = selectedGraphic;
+    this.currentGraphicImageUrl = this.getGraphicImagePath(selectedGraphic);
+  }
+
+  changeGraphicColour(colour: Colour): void {
+    this.editableShirt.graphic.colour = colour;
+    this.currentGraphicImageUrl = this.getGraphicImagePath();
   }
 
   getTextColour(): string {
