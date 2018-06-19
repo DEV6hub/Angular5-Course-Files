@@ -26,14 +26,9 @@ export class CatalogComponent implements OnInit, OnDestroy {
   showDesignShirt = false;
   designsCount: number;
 
-  @ViewChild('shoppingCartPanel') shoppingCartPanel: ElementRef;
-  @ViewChild('shippingInfoPanel') shippingInfoPanel: ElementRef;
-  @ViewChild('paymentMethodPanel') paymentMethodPanel: ElementRef;
-  @ViewChild('catalogTabs') catalogTabset: NgbTabset;
-
   logoPath = '../../../assets/images/navlogo.png';
 
-  constructor(private shirtService: ShirtService, 
+  constructor(private shirtService: ShirtService,
     private shoppingCartService: ShoppingCartService,
     private slidingPanelsService: SlidingPanelsService,
     private renderer: Renderer2) {
