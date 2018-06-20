@@ -39,6 +39,7 @@ import { TextPickerComponent } from './components/text-picker/text-picker.compon
 import { GraphicTextEditorComponent } from './components/graphic-text-editor/graphic-text-editor.component';
 import { UserInfoService } from './core/user-info.service';
 import { HttpModule } from '@angular/http';
+import { BackgroundChangeDirective } from './customDirectives/background-change.directive';
 
 
 
@@ -73,7 +74,8 @@ const routes: Routes = [
     ColourPickerComponent,
     GraphicsPickerComponent,
     TextPickerComponent,
-    GraphicTextEditorComponent
+    GraphicTextEditorComponent,
+    BackgroundChangeDirective
   ],
   imports: [
     BrowserModule,
