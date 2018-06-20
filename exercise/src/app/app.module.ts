@@ -40,6 +40,7 @@ import { GraphicTextEditorComponent } from './components/graphic-text-editor/gra
 import { UserInfoService } from './core/user-info.service';
 import { HttpModule } from '@angular/http';
 import { BackgroundChangeDirective } from './customDirectives/background-change.directive';
+import { StructuralUnlessDirective } from './customDirectives/structural-unless.directive';
 
 
 
@@ -75,7 +76,8 @@ const routes: Routes = [
     GraphicsPickerComponent,
     TextPickerComponent,
     GraphicTextEditorComponent,
-    BackgroundChangeDirective
+    BackgroundChangeDirective,
+    StructuralUnlessDirective
   ],
   imports: [
     BrowserModule,
