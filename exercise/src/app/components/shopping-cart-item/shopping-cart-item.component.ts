@@ -39,9 +39,4 @@ export class ShoppingCartItemComponent implements OnInit {
     this.quantityChange.emit(this.item);
   }
 
-  removeCartItem(item: ShoppingItem): any {
-    this.shoppingCartService.removeFromShoppingCart(item);
-    this.removeItem.emit(this.shoppingItemForm);
-  }
-
 }
