@@ -3,11 +3,33 @@ import {UserInfo} from '../shared/user-info';
 import {HttpModule, Http, Response} from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 @Injectable()
 export class UserInfoService {
  _baseUrl = 'http://localhost:3000';
+ private userInfo: UserInfo;
+ private userInfoSubject = new BehaviorSubject(this.userInfo);
+
   constructor(private http: Http) {
   }
+
+  getUserState() {
+    return this.userInfoSubject;
+  }
+
+  addUser(user: UserInfo) {
+    this.http.post(this._baseUrl + '/userInfo', user).subscribe(
+      res => {
+        console.log(res);
+      },
+      err => {
+        console.log('error', err);
+      }
+    );
+    this.userInfoSubject.next(user);
+  }
+
   createUser(user: UserInfo) {
     console.log('User Name: ' + user.name);
     console.log('Address1: ' + user.address1);
@@ -20,48 +42,11 @@ export class UserInfoService {
       }
     );
   }
+
   getUser(): Observable<UserInfo> {
     return this.http.get(this._baseUrl + '/userInfo')
       .map(res => {
         return res.json();
       });
   }
-  // getUser() {
-  //   let userInfo;
-  //   this.http.get(this._baseUrl + '/userInfo').subscribe(
-  //     res => {
-  //        userInfo = res.json().map(user => {
-  //         return new UserInfo(
-  //               user.name,
-  //               user.email,
-  //               user.phone,
-  //               user.address1,
-  //               user.address2,
-  //               user.city,
-  //               user.country,
-  //               user.province,
-  //               user.postal
-  //             );
-  //       });
-  //       console.log(userInfo);
-  //     }
-  //   );
-  //   return userInfo;
-  // }
 }
-
-
-// return res.json().map(user => {
-//   return new UserInfo(
-//     user.name,
-//     user.email,
-//     user.phone,
-//     user.address1,
-//     user.address2,
-//     user.city,
-//     user.country,
-//     user.province,
-//     user.postal
-//   );
-// });
-
