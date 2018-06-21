@@ -20,13 +20,6 @@ export class UserInfoService {
       }
     );
   }
-
-  // getUserName(): Observable<string> {
-  //   return this.http.get(this._baseUrl + '/userInfo').map(res => {
-  //     return res.json().name;
-  //   });
-  // }
-
   getUser(): Observable<UserInfo> {
     return this.http.get(this._baseUrl + '/userInfo')
       .map(res => {
