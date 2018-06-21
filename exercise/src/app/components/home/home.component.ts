@@ -8,7 +8,7 @@ import { NgbTabContent } from '@ng-bootstrap/ng-bootstrap';
 })
 export class HomeComponent implements OnInit {
 
-  condition: Boolean = false;
+  condition = false;
 
   verticalLogoPath = '../../../assets/images/Shirtastic-vertical.svg';
   fractalPath = '../../../assets/images/Fractal.png';

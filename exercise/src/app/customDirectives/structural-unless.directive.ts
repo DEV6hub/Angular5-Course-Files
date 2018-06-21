@@ -1,17 +1,16 @@
-import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Directive, ViewContainerRef, TemplateRef, Input } from '@angular/core';
 
-/**
- * Add the template content to the DOM unless the condition is true.
- */
-@Directive({ selector: '[appUnless]'})
-export class UnlessDirective {
+@Directive({
+  selector: '[appStructuralUnless]'
+})
+export class StructuralUnlessDirective {
   private hasView = false;
 
   constructor(
     private templateRef: TemplateRef<any>,
     private viewContainer: ViewContainerRef) { }
 
-  @Input() set appUnless(condition: boolean) {
+  @Input() set appStructuralUnless(condition: boolean) {
     if (!condition && !this.hasView) {
       this.viewContainer.createEmbeddedView(this.templateRef);
       this.hasView = true;
