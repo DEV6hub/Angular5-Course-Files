@@ -65,8 +65,8 @@
         <div class="col">
           <label for="country">Country</label>
           <br>
-          <select class="form-control" id="country" required #country="ngModel" name="country" [(ngModel)]="model.country" (change)="selectCountry($event.currentTarget.value)">
-            <option value="Select Option">Select Option</option>
+          <select class="form-control" id="country" required #country="ngModel" name="country" (change)="selectCountry($event.currentTarget.value)" [(ngModel)]="model.country">
+            <option [ngValue]="" selected="selected">Select Option</option>
             <option *ngFor="let country of countries" [value]="country" (click)="selectCountry(country)">{{country}}</option>
           </select>
           <div class="validation-error" *ngIf="country.errors && (country.dirty || country.touched)">
@@ -79,8 +79,8 @@
           <label for="province">Province/State</label>
           <br>
           <select class="form-control" id="province" required #province="ngModel" name="province" [(ngModel)]="model.province" (change)="selectState($event.currentTarget.value)">
-            <option value="Select">Select</option>
-            <option *ngFor="let state of states[selectedCountry]" [value]="state" (click)="selectState(state)">{{state}}</option>
+            <option value="" selected="selected">Select</option>
+            <option *ngFor="let province of states[model.country]" [value]="province" (click)="selectState(province)">{{province}}</option>
           </select>
           <div class="validation-error" *ngIf="province.errors && (province.dirty || province.touched)">
             <p *ngIf="province.errors.required">Province is required</p>

@@ -8,24 +8,13 @@ import { NgbTabContent } from '@ng-bootstrap/ng-bootstrap';
 })
 export class HomeComponent implements OnInit {
 
-  @ViewChild('tab') tab: any;
+  condition = false;
 
   verticalLogoPath = '../../../assets/images/Shirtastic-vertical.svg';
   fractalPath = '../../../assets/images/Fractal.png';
 
   constructor() {
   }
-
-  currentTab = 'signup';
-  shippingTabDisabled = true;
-
   ngOnInit() {
-    this.tab.activeId = 'signup';
   }
-
-  goToShipping(event) {
-    this.shippingTabDisabled = !event;
-    this.tab.activeId = 'shipping';
-  }
-
 }

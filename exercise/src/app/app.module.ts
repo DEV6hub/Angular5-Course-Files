@@ -37,7 +37,10 @@ import { ColourPickerComponent } from './components/colour-picker/colour-picker.
 import { GraphicsPickerComponent } from './components/graphics-picker/graphics-picker.component';
 import { TextPickerComponent } from './components/text-picker/text-picker.component';
 import { GraphicTextEditorComponent } from './components/graphic-text-editor/graphic-text-editor.component';
-
+import { UserInfoService } from './core/user-info.service';
+import { HttpModule } from '@angular/http';
+import { BackgroundChangeDirective } from './customDirectives/background-change.directive';
+import { StructuralUnlessDirective } from './customDirectives/structural-unless.directive';
 
 
 const routes: Routes = [
@@ -71,7 +74,9 @@ const routes: Routes = [
     ColourPickerComponent,
     GraphicsPickerComponent,
     TextPickerComponent,
-    GraphicTextEditorComponent
+    GraphicTextEditorComponent,
+    BackgroundChangeDirective,
+    StructuralUnlessDirective
   ],
   imports: [
     BrowserModule,
@@ -84,9 +89,10 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     EcoFabSpeedDialModule,
-    ClickOutsideModule
+    ClickOutsideModule,
+    HttpModule
   ],
-  providers: [],
+  providers: [UserInfoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
