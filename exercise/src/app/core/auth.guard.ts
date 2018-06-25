@@ -30,14 +30,15 @@ export class AuthGuard implements CanActivate {
   }
   canActivate(
     next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean> {
-      // if (this.userInfo.isLoggedIn) {
-      //  return true;
-      // } else {
-      //   window.alert('You don\'t have permission to view this page.Please signup .');
-      //   this.router.navigateByUrl('/home');
-      //   return false;
-      // }
+    state: RouterStateSnapshot) {
+
+      if (this.userInfo.isLoggedIn) {
+       return true;
+      } else {
+        window.alert('You don\'t have permission to view this page.Please signup .');
+        this.router.navigateByUrl('/home');
+        return false;
+      }
       // this.userInfo.getUser().subscribe((res) => {
       //   this.response = res;
       //   console.log('response is:', res);
@@ -50,11 +51,11 @@ export class AuthGuard implements CanActivate {
       //   }
       // });
 
-      return this.userInfo.getUserBoolean().map(e => {
-        if (e) {
-            return true;
-        }
-    });
+      // return this.userInfo.getUserBoolean().map(e => {
+      //   if (e) {
+      //       return true;
+      //   }
+    
     // .catch(err => {
     //     this.router.navigate(['/home']);
     //     return Observable.of(false);

@@ -51,12 +51,11 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'allGraphics', component: AllGraphicsComponent },
   { path: 'graphic/:graphicName', component: GraphicComponent },
-  { path: 'catalog', component: CatalogComponent,
+  { path: 'catalog', component: CatalogComponent, canActivate: [AuthGuard],
     children: [
       { path: 'shopping-cart', component: ShoppingCartComponent }
     ]},
     {path: '**', component: HomeComponent}
-  // { }
 ];
 
 @NgModule({
