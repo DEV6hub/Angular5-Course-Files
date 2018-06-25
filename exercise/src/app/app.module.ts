@@ -41,15 +41,21 @@ import { UserInfoService } from './core/user-info.service';
 import { HttpModule } from '@angular/http';
 import { BackgroundChangeDirective } from './customDirectives/background-change.directive';
 import { StructuralUnlessDirective } from './customDirectives/structural-unless.directive';
+import { AllGraphicsComponent } from './components/all-graphics/all-graphics.component';
+import { GraphicComponent } from './components/graphic/graphic.component';
+import { AuthGuard } from './core/auth.guard';
 
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
+  { path: 'allGraphics', component: AllGraphicsComponent },
+  { path: 'graphic/:graphicName', component: GraphicComponent },
   { path: 'catalog', component: CatalogComponent,
     children: [
       { path: 'shopping-cart', component: ShoppingCartComponent }
-    ]}
+    ]},
+    {path: '**', component: HomeComponent}
   // { }
 ];
 
@@ -76,7 +82,9 @@ const routes: Routes = [
     TextPickerComponent,
     GraphicTextEditorComponent,
     BackgroundChangeDirective,
-    StructuralUnlessDirective
+    StructuralUnlessDirective,
+    AllGraphicsComponent,
+    GraphicComponent
   ],
   imports: [
     BrowserModule,
@@ -92,7 +100,10 @@ const routes: Routes = [
     ClickOutsideModule,
     HttpModule
   ],
-  providers: [UserInfoService],
+  providers: [
+    UserInfoService,
+    AuthGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

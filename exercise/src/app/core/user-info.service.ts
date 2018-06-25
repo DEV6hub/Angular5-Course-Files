@@ -4,14 +4,18 @@ import {HttpModule, Http, Response} from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/observable/of';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Router } from '@angular/router';
 @Injectable()
 export class UserInfoService {
  _baseUrl = 'http://localhost:3000';
+ isLoggedIn;
  private userInfo: UserInfo;
  private userInfoSubject = new BehaviorSubject(this.userInfo);
 
-  constructor(private http: Http) {
+  constructor(private http: Http, private router: Router) {
+    this.isLoggedIn = false;
   }
 
   getUserState() {
@@ -19,6 +23,7 @@ export class UserInfoService {
   }
 
   addUser(user: UserInfo) {
+    this.isLoggedIn = true;
     this.http.post(this._baseUrl + '/userInfo', user).subscribe(
       res => {
         console.log(res);
@@ -28,6 +33,17 @@ export class UserInfoService {
       }
     );
     this.userInfoSubject.next(user);
+  }
+
+  addUserPromise(user: UserInfo) {
+    const promise = new Promise((resolve, reject) => {
+      this.http.post(this._baseUrl + '/userInfo', user).toPromise()
+      .then(res => {
+        console.log(res.json());
+        this.router.navigateByUrl('/catalog');
+      });
+    });
+    return promise;
   }
 
   createUser(user: UserInfo) {
@@ -43,10 +59,21 @@ export class UserInfoService {
     );
   }
 
-  getUser(): Observable<UserInfo> {
-    return this.http.get(this._baseUrl + '/userInfo')
+  getUser(): Observable<any> {
+   return this.http.get(this._baseUrl + '/userInfo')
       .map(res => {
         return res.json();
       });
+  }
+  getUserBoolean(): Observable<boolean> {
+    let state: boolean;
+    this.getUser().map( res => {
+      if (res) {
+        state = true;
+      } else {
+        state = false;
+      }
+    });
+    return Observable.of(state);
   }
 }

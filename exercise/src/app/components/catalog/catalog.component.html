@@ -11,6 +11,7 @@
     </div>
     <div class="row cart-btn-container">
         <input type="text" class="design-name-input nav-btn" placeholder="design name" [hidden]="!showDesignShirt">
+        <button type="button" class="primary-btn nav-btn" routerLink='/allGraphics'>LIST ALL GRAPHICS</button>
         <button type="button" class="primary-btn nav-btn" (click)="openNewDesign()" [hidden]="showDesignShirt">NEW DESIGN</button>
         <button type="button" class="primary-btn nav-btn" [hidden]="!showDesignShirt">SAVE DESIGN</button>
         <div class="divider"></div>

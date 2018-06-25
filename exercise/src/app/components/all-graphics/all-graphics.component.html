@@ -1,0 +1,14 @@
+
+<div class="card-deck">
+  <div *ngFor="let graphic of graphics">
+  <div class="card" style="width: 18rem;">
+    <a href="#" [routerLink]="['/graphic', graphic.fileName]">
+      <img class="card-img-top" src="../../../assets/images/graphics/{{graphic.fileName}}"  alt="{{graphic.fileName}}">
+    </a>
+    <div class="card-body">
+      <h5 class="card-title">{{graphic.name}}</h5>
+      <a href="#" routerLink='/catalog' class="btn btn-primary">Go Back to Catalog</a>
+    </div>
+  </div>
+</div>
+</div>

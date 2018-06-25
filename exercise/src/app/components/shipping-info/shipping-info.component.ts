@@ -5,6 +5,7 @@ import { SlidingPanelsService } from '../../core/sliding-panels.service';
 import { UserInfo } from '../../shared/user-info';
 import { UserInfoService } from '../../core/user-info.service';
 import { Subscription } from 'rxjs/Subscription';
+import { Observable } from 'rxjs/Observable';
 @Component({
   selector: 'app-shipping-info',
   templateUrl: './shipping-info.component.html',
@@ -15,8 +16,7 @@ export class ShippingInfoComponent implements OnInit {
   private states = REGIONS;
   private countries = COUNTRIES;
   @ViewChild('f') form: any;
-  model: UserInfo = new UserInfo({
-  });
+  model: UserInfo = new UserInfo({});
   selectedCountry = 'Select Option';
   selectedState = 'Select';
 

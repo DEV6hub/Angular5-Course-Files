@@ -54,12 +54,12 @@ export class SignupUserInfoComponent implements OnInit {
   }
 
   save(userInfo) {
-    if (this.userInfoForm.valid) {
+   // if (this.userInfoForm.valid) {
       this.userInfo = new UserInfo(userInfo);
       this.userInfoService.addUser(this.userInfo);
-      //this.userInfoService.createUser(this.userInfo);
+      //this.userInfoService.addUserPromise(this.userInfo);
       this.router.navigateByUrl('/catalog');
-    }
+   // }
   }
 
 }
