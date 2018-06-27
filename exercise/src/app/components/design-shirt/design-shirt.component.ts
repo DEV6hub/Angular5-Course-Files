@@ -4,6 +4,7 @@ import { Shirt, Graphic, Colour } from '../../shared/shirt';
 import { Subscription } from 'rxjs';
 
 const FRACTAL_PATH = '../../../assets/images/Fractal.png';
+const SAVED_TAB = 'design_tab';
 
 @Component({
   selector: 'app-design-shirt',
@@ -25,8 +26,11 @@ export class DesignShirtComponent implements OnInit {
   }
 
   ngOnInit() {
-    
-    this.activeTab = 4;
+    let savedTab = localStorage.getItem(SAVED_TAB);
+    if (!savedTab) {
+      localStorage.setItem(SAVED_TAB, '1');
+    }
+    this.activeTab = parseInt(localStorage.getItem(SAVED_TAB));
     this.sub = this.shirtService.getEditableShirt().subscribe((shirt) => {
       this.editableShirt = shirt;
     });
@@ -36,6 +40,7 @@ export class DesignShirtComponent implements OnInit {
 
   toggleTab(tabId: number): void {
     this.activeTab = tabId;
+    localStorage.setItem(SAVED_TAB, tabId.toString());
   }
 
   getStyleImagePath(): string {

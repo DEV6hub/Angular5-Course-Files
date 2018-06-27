@@ -68,6 +68,11 @@ export class ShirtService {
         this.emitEditableShirt();
     }
 
+    unselectGraphic(): void {
+        this.editableShirt.graphic = { name: "", colour: { name: "", value: ""}, fileName: "" };
+        this.emitEditableShirt();
+    }
+
     updateShirtTextFont(font): void {
         this.editableShirt.text.font = font;
     }
