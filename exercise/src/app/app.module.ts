@@ -6,7 +6,7 @@ import { CoreModule } from './core/core.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 import { SignupComponent } from './components/signup/signup.component';
 import { LoginComponent } from './components/login/login.component';
 import { CatalogComponent } from './components/catalog/catalog.component';
@@ -41,16 +41,28 @@ import { UserInfoService } from './core/user-info.service';
 import { HttpModule } from '@angular/http';
 import { BackgroundChangeDirective } from './customDirectives/background-change.directive';
 import { StructuralUnlessDirective } from './customDirectives/structural-unless.directive';
+import { AuthGuard } from './core/auth.guard';
+import { AuthchildrenGuard } from './core/authchildren.guard';
+import { CanDeactivateGuard } from './core/can-deactivate.guard';
+import { UsernameResolver } from './core/user-name-resolver';
+import { AuthGuardService } from './core/auth-guard.service';
 
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  { path: 'catalog', component: CatalogComponent,
-    children: [
-      { path: 'shopping-cart', component: ShoppingCartComponent }
-    ]}
-  // { }
+  { path: 'signup', component: SignupUserInfoComponent },
+  {
+    path: 'allStyleOptions',
+    loadChildren: 'app/style-gallery/style-gallery.module#StyleGalleryModule',
+    canLoad: [ AuthGuardService ]
+  },
+  {
+    path: 'tshirtsDatabase',
+    loadChildren: 'app/tshirts-database/tshirts-database.module#TShirtsDatabaseModule',
+  },
+  { path: 'catalog', component: CatalogComponent, canActivate: [AuthGuard] },
+  { path: '**', component: HomeComponent}
 ];
 
 @NgModule({
@@ -80,7 +92,10 @@ const routes: Routes = [
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(routes),
+    RouterModule.forRoot(routes,
+    {
+      preloadingStrategy: PreloadAllModules
+    }),
     BrowserAnimationsModule,
     MatTabsModule,
     MatButtonModule,
@@ -92,7 +107,14 @@ const routes: Routes = [
     ClickOutsideModule,
     HttpModule
   ],
-  providers: [UserInfoService],
+  providers: [
+    UserInfoService,
+    AuthGuard,
+    AuthchildrenGuard,
+    CanDeactivateGuard,
+    UsernameResolver,
+    AuthGuardService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

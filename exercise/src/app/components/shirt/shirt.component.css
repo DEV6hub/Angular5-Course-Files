@@ -120,3 +120,15 @@ p {
 .actions-container {
     padding: 10px;
 }
+
+
+.graphic-img {
+    top: 10%;
+    width: 45%;
+    /* border: 1px solid #DDDDDD; */
+    height: 85%;
+    width: 55%;
+    display: flex;
+    align-self: center;
+    position: absolute;
+}

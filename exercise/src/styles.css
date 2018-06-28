@@ -69,6 +69,24 @@ label {
     height: 35px;
     border-radius: 18px;
 }
+.primary-danger-btn {
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 9px 30px;
+    min-width: 144px;
+    background-color: #dc3545;
+    color: #FFFFFF;
+    outline: 0;
+    border: 0;
+    transition-duration: 0.4s;
+    transition: box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transition-delay: 0.2s;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+    margin-bottom: 5px;
+    height: 35px;
+    border-radius: 18px;
+}
 
 .primary-btn[disabled] {
     opacity: 0.5;

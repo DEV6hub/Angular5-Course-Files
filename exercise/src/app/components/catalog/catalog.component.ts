@@ -6,6 +6,11 @@ import { Subscription } from 'rxjs';
 import { ShoppingCartService } from '../../core/shopping-cart.service';
 import { SlidingPanelsService } from '../../core/sliding-panels.service';
 import { NgbTabset } from '@ng-bootstrap/ng-bootstrap';
+import 'fabric';
+import { networkInterfaces } from 'os';
+import { Router } from '@angular/router';
+
+declare const fabric: any;
 
 @Component({
   selector: 'app-catalog',
@@ -17,6 +22,7 @@ export class CatalogComponent implements OnInit, OnDestroy {
   private shirts: Shirt[];
   private shippingInfoPanelWidth: number;
   private paymentMethodPanelWidth: number;
+  private editableShirt: Shirt;
   subscriptions: Subscription[];
   shoppingCartItemsCount: number;
   showShoppingCart = false;
@@ -25,6 +31,7 @@ export class CatalogComponent implements OnInit, OnDestroy {
   showPaymentComplete = false;
   showDesignShirt = false;
   designsCount: number;
+  designName: string;
 
   @ViewChild('shoppingCartPanel') shoppingCartPanel: ElementRef;
   @ViewChild('shippingInfoPanel') shippingInfoPanel: ElementRef;
@@ -33,13 +40,14 @@ export class CatalogComponent implements OnInit, OnDestroy {
 
   logoPath = '../../../assets/images/navlogo.png';
 
-  constructor(private shirtService: ShirtService, 
+  constructor(private shirtService: ShirtService,
     private shoppingCartService: ShoppingCartService,
     private slidingPanelsService: SlidingPanelsService,
-    private renderer: Renderer2) {
+    private renderer: Renderer2,
+    private router: Router) {
 
-      this.subscriptions = [];
-      this.shirts = [];
+    this.subscriptions = [];
+    this.shirts = [];
   }
 
   ngOnInit(): any {
@@ -76,6 +84,12 @@ export class CatalogComponent implements OnInit, OnDestroy {
       })
     );
 
+    this.subscriptions.push(
+      this.shirtService.getEditableShirt().subscribe((shirt) => {
+        this.editableShirt = shirt;
+      })
+    );
+
     this.shippingInfoPanelWidth = this.shippingInfoPanel.nativeElement.offsetWidth;
     this.paymentMethodPanelWidth = this.paymentMethodPanel.nativeElement.offsetWidth;
   }
@@ -95,6 +109,20 @@ export class CatalogComponent implements OnInit, OnDestroy {
 
   openNewDesign(): void {
     this.showDesignShirt = true;
+  }
+
+  saveDesign(): void {
+    if (this.designName !== '') {
+      this.shirtService.getDesignCanvas().subscribe((canvas) => {
+        let newShirt: Shirt = this.editableShirt;
+        newShirt.canvasJSON = canvas.toDatalessJSON();
+        newShirt.name = this.designName;
+        this.shirtService.addShirt(newShirt);
+        //this.router.navigateByUrl('/catalog');
+        this.showDesignShirt = false;
+        this.editableShirt = null;
+      });
+    }
   }
 
   toggleShoppingCart(state?: boolean): void {

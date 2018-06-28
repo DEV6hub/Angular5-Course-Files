@@ -25,6 +25,8 @@ export class GraphicTextEditorComponent implements AfterViewChecked {
   private widthScale: number;
   private heightScale: number;
 
+  
+
   @ViewChild('canvas') canvasElement: ElementRef;
 
   @Input()
@@ -121,7 +123,7 @@ export class GraphicTextEditorComponent implements AfterViewChecked {
       });
     }
     this.rebindCanvasEvents();
-    //this.shirtService.setDesignCanvas(this.canvas);
+    this.shirtService.setDesignCanvas(this.canvas);
   }
 
   private rebindCanvasEvents(): void {

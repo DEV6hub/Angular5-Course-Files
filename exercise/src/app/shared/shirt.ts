@@ -17,7 +17,8 @@ export class Shirt {
             value: '',
             colour: { name: 'black', value: '#444444'}, 
             font: '"Montserrat", sans-serif'
-        }
+        },
+        public canvasJSON: Object = ''
     ) {}
 }
 

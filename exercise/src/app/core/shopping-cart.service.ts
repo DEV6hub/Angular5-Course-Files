@@ -7,8 +7,8 @@ import { Observable, BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class ShoppingCartService {
-
     private shoppingItems: ShoppingItem[] = [];
+    itemsInBasket = false;
     private _shoppingItemsSubject: BehaviorSubject<ShoppingItem[]>  = new BehaviorSubject<ShoppingItem[]>([]);
     private lastUsedId: number;
 
@@ -35,7 +35,7 @@ export class ShoppingCartService {
 
     addToShoppingCart(shirt: Shirt, shirtSize: ShirtSize): any {
         const quantity = 1; // default quantity
-
+        this.itemsInBasket = true;
         if (!this.shoppingItems) {
             this.shoppingItems = [];
         }
@@ -81,5 +81,8 @@ export class ShoppingCartService {
 
     calculateSubtotal(): number {
         return this.shoppingItems.reduce((total, item) => total + item.shirt.price * item.quantity, 0);
+    }
+    checkBasketStatus(): boolean {
+        return this.itemsInBasket;
     }
 }

@@ -62,8 +62,8 @@
       <div class="card image-design">
         <img class="img-fluid" src="{{getStyleImagePath()}}" alt="shirt design">
         <div class="graphic-img">
-          <app-graphic-text-editor *ngIf="hasGraphic() || hasText()" #graphicEditor [imageUrl]="currentGraphicImageUrl" [textColour]="editableShirt.text.colour.value"
-            [fontFamily]="editableShirt.text.font" [(inputText)]="editableShirt.text.value"></app-graphic-text-editor>
+          <app-graphic-text-editor *ngIf="hasGraphic() || hasText()" #graphicEditor [textColour]="editableShirt.text.colour.value"
+            [fontFamily]="getTextFont()" [inputText]="getTextValue()" (inputTextChange)="changeTextValue($event)" [imageUrl]="getGraphicImagePath()"></app-graphic-text-editor>
         </div>
       </div>
     </div>

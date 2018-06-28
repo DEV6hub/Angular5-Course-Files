@@ -18,7 +18,6 @@ export class DesignShirtComponent implements OnInit {
   activeTab: number;
   editableShirt: Shirt;
   sub: Subscription;
-  currentGraphicImageUrl: string;
 
   colourPickerTitle: string = 'Choose a shirt colour';
 
@@ -34,8 +33,6 @@ export class DesignShirtComponent implements OnInit {
     this.sub = this.shirtService.getEditableShirt().subscribe((shirt) => {
       this.editableShirt = shirt;
     });
-
-    this.currentGraphicImageUrl = this.getGraphicImagePath();
   }
 
   toggleTab(tabId: number): void {
@@ -54,12 +51,10 @@ export class DesignShirtComponent implements OnInit {
   changeGraphic(graphic?: Graphic): void {
     const selectedGraphic = graphic ? graphic : this.editableShirt.graphic;
     this.editableShirt.graphic = selectedGraphic;
-    this.currentGraphicImageUrl = this.getGraphicImagePath(selectedGraphic);
   }
 
   changeGraphicColour(colour: Colour): void {
     this.editableShirt.graphic.colour = colour;
-    this.currentGraphicImageUrl = this.getGraphicImagePath();
   }
 
   getTextColour(): string {
@@ -68,6 +63,14 @@ export class DesignShirtComponent implements OnInit {
 
   getTextFont(): string {
     return (this.editableShirt.text.font ? this.editableShirt.text.font : '');
+  }
+
+  getTextValue(): string {
+    return (this.editableShirt.text.value ? this.editableShirt.text.value : '');
+  }
+
+  changeTextValue(value: string): void {
+    this.editableShirt.text.value = value;
   }
 
   hasGraphic(): boolean {

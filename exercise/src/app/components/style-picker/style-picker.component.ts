@@ -23,8 +23,8 @@ export class StylePickerComponent implements OnInit {
     });
   }
 
-  pickStyle(imageName: string): void {
-    this.shirtService.selectStyle(imageName);
+  pickStyle(style: any): void {
+    this.shirtService.selectStyle(style);
   }
 
   getStyleImagePath(style): string {

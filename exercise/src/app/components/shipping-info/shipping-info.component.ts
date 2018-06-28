@@ -5,6 +5,8 @@ import { SlidingPanelsService } from '../../core/sliding-panels.service';
 import { UserInfo } from '../../shared/user-info';
 import { UserInfoService } from '../../core/user-info.service';
 import { Subscription } from 'rxjs/Subscription';
+import { Observable } from 'rxjs/Observable';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-shipping-info',
   templateUrl: './shipping-info.component.html',
@@ -15,12 +17,11 @@ export class ShippingInfoComponent implements OnInit {
   private states = REGIONS;
   private countries = COUNTRIES;
   @ViewChild('f') form: any;
-  model: UserInfo = new UserInfo({
-  });
+  model: UserInfo = new UserInfo({});
   selectedCountry = 'Select Option';
   selectedState = 'Select';
 
-  constructor(private slidingPanelsService: SlidingPanelsService, private userInfoService: UserInfoService) {
+  constructor( private router: Router, private slidingPanelsService: SlidingPanelsService, private userInfoService: UserInfoService) {
   }
 
   ngOnInit() {
@@ -44,5 +45,4 @@ export class ShippingInfoComponent implements OnInit {
     this.slidingPanelsService.togglePaymentMethod(true);
     }
   }
-
 }

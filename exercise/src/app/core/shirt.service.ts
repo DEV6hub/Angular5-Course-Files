@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { Shirt, Colour, Graphic } from '../shared/shirt';
 import { Observable, BehaviorSubject, Subject } from 'rxjs';
 import { SHIRTS } from '../constants/static-data.constants';
+import 'fabric';
+
+declare const fabric: any;
 
 const SHIRT_IMAGES_PATH = "../../../assets/images/plain-shirts/";
 const GRAPHICS_IMAGES_PATH = "../../../assets/images/graphics/";
@@ -11,8 +14,10 @@ export class ShirtService {
 
     private shirts: Shirt[];
     private editableShirt: Shirt;
+    private designCanvas: fabric.Canvas;
     private shirtsSubject: BehaviorSubject<Shirt[]>;
     private editableShirtSubject: BehaviorSubject<Shirt>;
+    private designCanvasSubject: BehaviorSubject<fabric.Canvas>;
 
     private lastUsedId: number = 8;
 
@@ -22,8 +27,10 @@ export class ShirtService {
         this.setShirts();
         this.editableShirt = new Shirt();
         this.editableShirt.shirtStyle = "MensShirt";
+        this.editableShirt.price = 19.99;
         this.editableShirt.graphic;
         this.editableShirtSubject = new BehaviorSubject(this.editableShirt);
+        this.designCanvasSubject = new BehaviorSubject(this.designCanvas);
     }
 
     private setShirts() {
@@ -34,6 +41,15 @@ export class ShirtService {
         this.editableShirtSubject.next(this.editableShirt);
     }
 
+    setDesignCanvas(canvas: fabric.Canvas): void {
+        this.designCanvas = canvas;
+        this.designCanvasSubject.next(this.designCanvas);
+    }
+
+    getDesignCanvas(): Observable<fabric.Canvas> {
+        return this.designCanvasSubject.asObservable();
+    }
+
     getShirts(): Observable<Shirt[]> {
         return this.shirtsSubject.asObservable();
     }
@@ -42,8 +58,9 @@ export class ShirtService {
         return this.editableShirtSubject.asObservable();
     }
 
-    selectStyle(style: string): void {
-        this.editableShirt.shirtStyle = style;
+    selectStyle(style: any): void {
+        this.editableShirt.shirtStyle = style.imgName;
+        this.editableShirt.description = style.imgDescription;
         this.emitEditableShirt();
     }
 
@@ -77,8 +94,9 @@ export class ShirtService {
         this.editableShirt.text.font = font;
     }
 
-    getStyleImagePath(style?): string {
-        return `${SHIRT_IMAGES_PATH}${(style) ? style.imgName : this.editableShirt.shirtStyle}-${this.editableShirt.shirtColour.name.toLowerCase()}.png`;
+    getStyleImagePath(style?, shirt?: Shirt): string {
+        let obj: Shirt = shirt || this.editableShirt;
+        return `${SHIRT_IMAGES_PATH}${(style) ? style.imgName : obj.shirtStyle}-${obj.shirtColour.name.toLowerCase()}.png`;
     }
 
     getGraphicImagePath(graphic?): string {
@@ -128,6 +146,12 @@ export class ShirtService {
             this.shirts.push(duplicatedShirt);
             this.shirtsSubject.next(this.shirts);
         }
+    }
+
+    addShirt(shirt: Shirt): void {
+        const newShirt: Shirt = Object.assign(new Shirt(), shirt, { id: ++this.lastUsedId });
+        this.shirts.push(newShirt);
+        this.shirtsSubject.next(this.shirts);
     }
 
     deleteShirt(shirt: Shirt): void {

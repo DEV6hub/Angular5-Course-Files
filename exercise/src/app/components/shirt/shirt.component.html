@@ -1,6 +1,13 @@
 <div class="card text-center">
   <div class="img-view" (click)="actionButtonsShown = !actionButtonsShown" (clickOutside)="actionButtonsShown = false">
-    <img [ngClass]="{'shifted': actionButtonsShown}" class="img-fluid" src="{{shirt.imagePath}}" alt="Sample photo">
+    <img [hidden]="shirt.canvasJSON !== ''" class="img-fluid" src="{{shirt.imagePath}}" alt="Sample photo">
+    
+    <div [hidden]="shirt.imagePath !== ''" [ngClass]="{'shifted': actionButtonsShown}">
+      <img class="img-fluid" src="{{getStyleImagePath()}}" alt="shirt design">
+      <div class="graphic-img">
+        <canvas #canvas name="canvas" height="380" width="380"></canvas>
+      </div>
+    </div>
     <div class="actions-container" [hidden]="!actionButtonsShown">
       <button type="button" class="primary-btn" (click)="edit(shirt)">EDIT</button>
       <button type="button" class="primary-btn" (click)="duplicate(shirt)">DUPLICATE</button>
