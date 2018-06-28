@@ -2,12 +2,11 @@ import { Component, OnInit, OnDestroy, Renderer2, ViewChild, ElementRef } from '
 import { ShirtGenderPipe } from '../../filters/shirt-filter';
 import { Shirt } from '../../shared/shirt';
 import { ShirtService } from '../../core/shirt.service';
-import { Subscription } from 'rxjs';
+import { Subscription } from 'rxjs/Subscription';
 import { ShoppingCartService } from '../../core/shopping-cart.service';
 import { SlidingPanelsService } from '../../core/sliding-panels.service';
 import { NgbTabset } from '@ng-bootstrap/ng-bootstrap';
 import 'fabric';
-import { networkInterfaces } from 'os';
 import { Router } from '@angular/router';
 
 declare const fabric: any;
