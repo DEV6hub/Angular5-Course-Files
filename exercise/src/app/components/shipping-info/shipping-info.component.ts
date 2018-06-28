@@ -6,6 +6,7 @@ import { UserInfo } from '../../shared/user-info';
 import { UserInfoService } from '../../core/user-info.service';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-shipping-info',
   templateUrl: './shipping-info.component.html',
@@ -20,7 +21,7 @@ export class ShippingInfoComponent implements OnInit {
   selectedCountry = 'Select Option';
   selectedState = 'Select';
 
-  constructor(private slidingPanelsService: SlidingPanelsService, private userInfoService: UserInfoService) {
+  constructor( private router: Router, private slidingPanelsService: SlidingPanelsService, private userInfoService: UserInfoService) {
   }
 
   ngOnInit() {
@@ -44,5 +45,4 @@ export class ShippingInfoComponent implements OnInit {
     this.slidingPanelsService.togglePaymentMethod(true);
     }
   }
-
 }

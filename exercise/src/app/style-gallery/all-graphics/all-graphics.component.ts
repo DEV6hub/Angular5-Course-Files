@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { ShirtService } from '../../core/shirt.service';
 import { GRAPHICS } from '../../constants/static-data.constants';
 
 @Component({
@@ -10,12 +9,8 @@ import { GRAPHICS } from '../../constants/static-data.constants';
 })
 export class AllGraphicsComponent implements OnInit {
   graphics = GRAPHICS;
-  constructor(private shirtService: ShirtService) { }
+  constructor() { }
 
   ngOnInit() {
-  }
-  getGraphicImagePath(graphic): string {
-    const path = this.shirtService.getGraphicImagePath(graphic);
-    return path;
   }
 }

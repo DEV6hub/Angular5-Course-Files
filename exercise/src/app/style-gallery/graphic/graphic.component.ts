@@ -9,7 +9,9 @@ import { ActivatedRoute } from '@angular/router';
 export class GraphicComponent implements OnInit {
   graphicName: string;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute) {
+    console.log('const');
+   }
 
   ngOnInit() {
     this.graphicName = this.route.snapshot.params.graphicName;
