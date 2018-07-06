@@ -46,6 +46,7 @@ import { AuthchildrenGuard } from './core/authchildren.guard';
 import { CanDeactivateGuard } from './core/can-deactivate.guard';
 import { UsernameResolver } from './core/user-name-resolver';
 import { AuthGuardService } from './core/auth-guard.service';
+import { CanvasScalerFactoryService } from './shared/canvas-scaler';
 
 
 const routes: Routes = [
@@ -61,7 +62,8 @@ const routes: Routes = [
     path: 'tshirtsDatabase',
     loadChildren: 'app/tshirts-database/tshirts-database.module#TShirtsDatabaseModule',
   },
-  { path: 'catalog', component: CatalogComponent, canActivate: [AuthGuard] },
+  { path: 'catalog', component: CatalogComponent },
+  //canActivate: [AuthGuard] },
   { path: '**', component: HomeComponent}
 ];
 
@@ -113,7 +115,8 @@ const routes: Routes = [
     AuthchildrenGuard,
     CanDeactivateGuard,
     UsernameResolver,
-    AuthGuardService
+    AuthGuardService,
+    CanvasScalerFactoryService
   ],
   bootstrap: [AppComponent]
 })
