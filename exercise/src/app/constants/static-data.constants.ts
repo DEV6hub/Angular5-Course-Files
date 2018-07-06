@@ -1,4 +1,4 @@
-import { Shirt } from "../shared/shirt";
+import { Shirt } from '../shared/shirt';
 
 export const COUNTRIES = ['Canada', 'USA'];
 

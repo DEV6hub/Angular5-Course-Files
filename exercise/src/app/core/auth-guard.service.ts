@@ -8,7 +8,6 @@ export class AuthGuardService implements CanLoad {
   }
   canLoad(route: Route): boolean {
     const url: string = route.path;
-    console.log('Url:' + url);
     if (this.userInfoService.isLoggedIn) {
       return true;
     }

@@ -8,7 +8,6 @@ import { HomeComponent } from './components/home/home.component';
 
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 import { SignupComponent } from './components/signup/signup.component';
-import { LoginComponent } from './components/login/login.component';
 import { CatalogComponent } from './components/catalog/catalog.component';
 import { ShirtComponent } from './components/shirt/shirt.component';
 
@@ -38,15 +37,18 @@ import { GraphicsPickerComponent } from './components/graphics-picker/graphics-p
 import { TextPickerComponent } from './components/text-picker/text-picker.component';
 import { GraphicTextEditorComponent } from './components/graphic-text-editor/graphic-text-editor.component';
 import { UserInfoService } from './core/user-info.service';
-import { HttpModule } from '@angular/http';
+import { HttpModule, Http } from '@angular/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { BackgroundChangeDirective } from './customDirectives/background-change.directive';
 import { StructuralUnlessDirective } from './customDirectives/structural-unless.directive';
 import { AuthGuard } from './core/auth.guard';
-import { AuthchildrenGuard } from './core/authchildren.guard';
-import { CanDeactivateGuard } from './core/can-deactivate.guard';
-import { UsernameResolver } from './core/user-name-resolver';
 import { AuthGuardService } from './core/auth-guard.service';
-
+import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+// AoT requires an exported function for factories
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -61,7 +63,10 @@ const routes: Routes = [
     path: 'tshirtsDatabase',
     loadChildren: 'app/tshirts-database/tshirts-database.module#TShirtsDatabaseModule',
   },
-  { path: 'catalog', component: CatalogComponent, canActivate: [AuthGuard] },
+  {
+    path: 'catalog', component: CatalogComponent,
+    canActivate: [AuthGuard]
+  },
   { path: '**', component: HomeComponent}
 ];
 
@@ -71,7 +76,6 @@ const routes: Routes = [
     HomeComponent,
     SignupComponent,
     SignupUserInfoComponent,
-    LoginComponent,
     CatalogComponent,
     ShirtComponent,
     ShirtGenderPipe,
@@ -92,6 +96,7 @@ const routes: Routes = [
   ],
   imports: [
     BrowserModule,
+    HttpModule,
     RouterModule.forRoot(routes,
     {
       preloadingStrategy: PreloadAllModules
@@ -105,14 +110,18 @@ const routes: Routes = [
     ReactiveFormsModule,
     EcoFabSpeedDialModule,
     ClickOutsideModule,
-    HttpModule
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+          provide: TranslateLoader,
+          useFactory: HttpLoaderFactory,
+          deps: [HttpClient]
+      }
+  })
   ],
   providers: [
     UserInfoService,
     AuthGuard,
-    AuthchildrenGuard,
-    CanDeactivateGuard,
-    UsernameResolver,
     AuthGuardService
   ],
   bootstrap: [AppComponent]

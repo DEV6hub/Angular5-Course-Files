@@ -7,7 +7,9 @@ import { ShoppingCartService } from '../../core/shopping-cart.service';
 import { SlidingPanelsService } from '../../core/sliding-panels.service';
 import { NgbTabset } from '@ng-bootstrap/ng-bootstrap';
 import 'fabric';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { UserInfoService } from '../../core/user-info.service';
+import { UserInfo } from '../../shared/user-info';
 
 declare const fabric: any;
 
@@ -42,14 +44,20 @@ export class CatalogComponent implements OnInit, OnDestroy {
   constructor(private shirtService: ShirtService,
     private shoppingCartService: ShoppingCartService,
     private slidingPanelsService: SlidingPanelsService,
+    private userInfoService: UserInfoService,
     private renderer: Renderer2,
-    private router: Router) {
+    private router: Router,
+    private route: ActivatedRoute) {
 
     this.subscriptions = [];
     this.shirts = [];
   }
 
   ngOnInit(): any {
+    // this.route.snapshot.data.message.subscribe((res) => {
+    //   this.userInfoService.userInfo = res;
+    // });
+    //this.userInfoService.userInfo = this.route.snapshot.data.message as UserInfo;
     this.subscriptions.push(this.shirtService.getShirts().subscribe((result) => {
       this.shirts = result;
       this.updateDesignCount(this.catalogTabset.activeId);

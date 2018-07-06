@@ -32,7 +32,7 @@
         <button class="btn btn-danger" (click)="doGETWithHeaders()">With Headers</button>
       </div>
       <div class="card-deck">
-        <div *ngFor="let result of results">
+        <div [@heroState]="result.gender" *ngFor="let result of results">
           <div class="card border-dark mb-3" style="width: 18rem;">
             <img class="card-img-top" src="../../..{{result.imgSrc}}">
             <div class="card-body text-dark">

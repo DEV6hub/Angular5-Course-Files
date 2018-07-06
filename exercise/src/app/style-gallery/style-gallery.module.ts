@@ -14,10 +14,13 @@ const routes: Routes = [
     path: '',
     component: AllStyleOptionsComponent,
     canActivateChild: [AuthchildrenGuard],
-    canDeactivate: [CanDeactivateGuard],
+    //canDeactivate: [CanDeactivateGuard],
     resolve: { message: UsernameResolver },
     children: [
-      {path: 'allGraphics', component: AllGraphicsComponent},
+      {path: 'allGraphics', component: AllGraphicsComponent,
+      children: [
+        {path: 'graphic/:graphicName', component: GraphicComponent}
+      ]},
       {path: 'allColors', component: StyleColorsComponent},
     ]
   }

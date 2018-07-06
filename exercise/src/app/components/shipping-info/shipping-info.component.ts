@@ -25,10 +25,7 @@ export class ShippingInfoComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userInfoService.getUser().subscribe((user: any) => {
-      console.log(user);
-      this.model = user;
-    });
+    this.model = this.userInfoService.userInfo;
   }
 
   selectCountry(country) {

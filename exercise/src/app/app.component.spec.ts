@@ -1,12 +1,46 @@
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed, async, inject } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { By } from '@angular/platform-browser';
+import { HomeComponent } from './components/home/home.component';
+import { Router } from '@angular/router';
+import {Location} from '@angular/common';
+import { SignupUserInfoComponent } from './components/signup-user-info/signup-user-info.component';
+import { StructuralUnlessDirective } from './customDirectives/structural-unless.directive';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap' ;
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MockBackend } from '@angular/http/testing';
+import { XHRBackend } from '@angular/http';
+import { UserInfoService } from './core/user-info.service';
+
 describe('AppComponent', () => {
+  let router, location;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        AppComponent
+        AppComponent,
+        HomeComponent,
+        SignupUserInfoComponent,
+        StructuralUnlessDirective
       ],
+      imports: [
+        RouterTestingModule.withRoutes([
+          { path: 'home', component: HomeComponent },
+          { path: 'signup', component: SignupUserInfoComponent }
+        ]),
+        NgbModule.forRoot(),
+        FormsModule,
+        ReactiveFormsModule
+      ],
+      providers: [
+        { provide: XHRBackend, useClass: MockBackend },
+        UserInfoService
+      ]
     }).compileComponents();
+  }));
+  beforeEach(inject([Router, Location], (_router: Router, _location: Location) => {
+    router = _router;
+    location = _location;
   }));
   it('should create the app', async(() => {
     const fixture = TestBed.createComponent(AppComponent);
@@ -18,10 +52,12 @@ describe('AppComponent', () => {
     const app = fixture.debugElement.componentInstance;
     expect(app.title).toEqual('app');
   }));
-  it('should render title in a h1 tag', async(() => {
+  it('should go home', async(() => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to app!');
+    router.navigate(['/home']).then(() => {
+      expect(location.path()).toBe('/home');
+      console.log('after expect');
+    });
   }));
 });
