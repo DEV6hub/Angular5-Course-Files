@@ -123,7 +123,7 @@ export class CatalogComponent implements OnInit, OnDestroy {
         newShirt.name = this.designName;
         this.shirtService.addShirt(newShirt);
         // this.router.navigateByUrl('/catalog');
-        //this.shirtService.resetEditableShirt();
+        // this.shirtService.resetEditableShirt();
         this.showDesignShirt = false;
       });
     }
