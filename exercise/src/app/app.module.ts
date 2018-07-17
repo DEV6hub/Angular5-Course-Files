@@ -49,6 +49,8 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
+import { CanvasScalerFactoryService } from './shared/canvas-scaler';
+
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -66,8 +68,7 @@ const routes: Routes = [
   {
     path: 'catalog', component: CatalogComponent,
     canActivate: [AuthGuard]
-  },
-  { path: '**', component: HomeComponent}
+  }
 ];
 
 @NgModule({
@@ -122,7 +123,8 @@ const routes: Routes = [
   providers: [
     UserInfoService,
     AuthGuard,
-    AuthGuardService
+    AuthGuardService,
+    CanvasScalerFactoryService
   ],
   bootstrap: [AppComponent]
 })

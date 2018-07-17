@@ -42,4 +42,8 @@ export class ShippingInfoComponent implements OnInit {
     this.slidingPanelsService.togglePaymentMethod(true);
     }
   }
+  reset() {
+    this.form.reset();
+    window.alert('All fields are cleared up.');
+  }
 }
